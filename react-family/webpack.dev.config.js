@@ -1,4 +1,5 @@
 const path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
@@ -11,7 +12,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, './dist'),
         filename: 'bundle.js',
-        chunkFilename: '[name].js'
+        chunkFilename: '[name].[chunkhash].js'
     },
 
     /*src文件夹下面的以.js结尾的文件，要使用babel解析*/
@@ -39,7 +40,10 @@ module.exports = {
             }
         ]
     },
-
+    plugins: [new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: path.join(__dirname, 'src/index.html')
+        })],
     devServer: {
         port: 8080,
         contentBase: path.join(__dirname, './dist'),
