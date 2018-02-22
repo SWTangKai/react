@@ -46,7 +46,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new UglifyJSPlugin(),
+        new UglifyJSPlugin(), new webpack.HashedModuleIdsPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.join(__dirname, 'src/index.html')
@@ -54,6 +54,9 @@ module.exports = {
         new webpack
             .optimize
             .CommonsChunkPlugin({name: 'vendor'}),
+        new webpack
+            .optimize
+            .CommonsChunkPlugin({name: 'runtime'}),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
