@@ -53,7 +53,12 @@ module.exports = {
         }),
         new webpack
             .optimize
-            .CommonsChunkPlugin({name: 'vendor'})
+            .CommonsChunkPlugin({name: 'vendor'}),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        })
     ],
 
     resolve: {
