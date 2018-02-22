@@ -1,6 +1,7 @@
 const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -32,7 +33,7 @@ module.exports = {
                 include: path.join(__dirname, 'src')
             }, {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'})
             }, {
                 test: /\.(png|jpg|gif)$/,
                 use: [
@@ -64,6 +65,7 @@ module.exports = {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
+        new ExtractTextPlugin({filename: '[name].[contenthash:5].css', allChunks: true}),
         new CleanWebpackPlugin(['dist'])
     ],
 
